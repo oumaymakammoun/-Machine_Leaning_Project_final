@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prédiction Churn — Retail ML</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; }
+    .card { border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    .result-box { border-radius: 10px; padding: 20px; margin-top: 10px; }
+    .proba-bar { height: 24px; border-radius: 6px; transition: width 0.6s ease; }
+    h1 { font-weight: 600; color: #2c3e50; }
+  </style>
+</head>
+<body>
+<div class="container py-5">
+  <h1 class="mb-1 text-center">🛒 Prédiction Churn Client</h1>
+  <p class="text-center text-muted mb-4">Retail E-commerce — Analyse comportementale</p>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <!-- FORMULAIRE -->
+      <div class="card p-4 mb-4">
+        <h5 class="mb-3">Informations client</h5>
+        <form method="POST">
+          <div class="row g-3">
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Recency (jours sans achat)</label>
+              <input type="number" class="form-control" name="recency"
+                     min="0" max="400" step="1"
+                     value="{{ form.get('recency', '') }}" required>
+              <div class="form-text">0 = achat récent | 400 = très inactif</div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Frequency (nb commandes)</label>
+              <input type="number" class="form-control" name="frequency"
+                     min="1" max="50" step="1"
+                     value="{{ form.get('frequency', '') }}" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Monetary Total (£)</label>
+              <input type="number" class="form-control" name="monetary"
+                     min="-5000" max="15000" step="0.01"
+                     value="{{ form.get('monetary', '') }}" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Ancienneté client (jours)</label>
+              <input type="number" class="form-control" name="tenure"
+                     min="0" max="730" step="1"
+                     value="{{ form.get('tenure', '') }}" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Satisfaction (1-5)</label>
+              <input type="number" class="form-control" name="satisfaction"
+                     min="1" max="5" step="0.1"
+                     value="{{ form.get('satisfaction', '') }}" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Tickets support</label>
+              <input type="number" class="form-control" name="tickets"
+                     min="0" max="15" step="1"
+                     value="{{ form.get('tickets', '') }}" required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Âge client</label>
+              <input type="number" class="form-control" name="age"
+                     min="18" max="81" step="1"
+                     value="{{ form.get('age', '') }}" required>
+            </div>
+
+          </div>
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">
+              🔍 Analyser ce client
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RÉSULTATS -->
+      {% if result %}
+      <div class="card p-4">
+        <h5 class="mb-3">Résultats de l'analyse</h5>
+
+        <!-- Churn -->
+        <div class="result-box bg-{{ 'danger' if result.churn_pred == 1 else 'success' }} bg-opacity-10 border border-{{ 'danger' if result.churn_pred == 1 else 'success' }}">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold fs-5">
+              {{ '⚠️ Churner' if result.churn_pred == 1 else '✅ Fidèle' }}
+            </span>
+            <span class="badge bg-{{ result.couleur }} fs-6">
+              Risque {{ result.risque }}
+            </span>
+          </div>
+
+          <p class="mb-1 text-muted">Probabilité de churn</p>
+          <div class="progress mb-1" style="height:24px;">
+            <div class="progress-bar bg-{{ result.couleur }} proba-bar"
+                 style="width: {{ result.churn_proba }}%">
+              {{ result.churn_proba }}%
+            </div>
+          </div>
+        </div>
+
+        <!-- Segment -->
+        <div class="result-box bg-info bg-opacity-10 border border-info mt-3">
+          <p class="mb-1 fw-bold">📊 Segment client</p>
+          <p class="mb-0 fs-5">{{ result.cluster_label }}
+            <span class="text-muted fs-6">(Cluster {{ result.cluster }})</span>
+          </p>
+        </div>
+
+        <!-- Valeur monétaire -->
+        <div class="result-box bg-secondary bg-opacity-10 border border-secondary mt-3">
+          <p class="mb-1 fw-bold">💰 Valeur monétaire prédite</p>
+          <p class="mb-0 fs-5">{{ result.monetary }} <span class="text-muted fs-6">(valeur normalisée)</span></p>
+        </div>
+
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

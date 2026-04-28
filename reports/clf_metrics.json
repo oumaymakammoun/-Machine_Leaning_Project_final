@@ -1,0 +1,61 @@
+{
+  "best_params": {
+    "class_weight": "balanced",
+    "max_depth": null,
+    "min_samples_split": 2,
+    "n_estimators": 100
+  },
+  "cv_roc_auc": 1.0,
+  "test_roc_auc": 1.0,
+  "train_roc_auc": 1.0,
+  "overfitting_gap": 0.0,
+  "classification_report": {
+    "0": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 584.0
+    },
+    "1": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 291.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 875.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 875.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      584,
+      0
+    ],
+    [
+      0,
+      291
+    ]
+  ],
+  "top10_features": {
+    "Recency": 0.32782169177859505,
+    "TenureRatio": 0.16641836610208785,
+    "MonetaryPerDay": 0.11180675340996626,
+    "FirstPurchaseDaysAgo": 0.08252830722003646,
+    "PreferredMonth": 0.06663489556805453,
+    "CustomerTenureDays": 0.04795810255210321,
+    "RFMSegment_Dormants": 0.03140614636655413,
+    "MonetaryTotal": 0.02677668754178388,
+    "Frequency": 0.020211503874955888,
+    "RFMSegment_Fidèles": 0.01833513519703695
+  }
+}

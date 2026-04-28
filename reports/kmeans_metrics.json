@@ -1,0 +1,20 @@
+{
+  "n_components_pca": 10,
+  "variance_retenue_pct": 54.32,
+  "k": 4,
+  "silhouette": 0.1783,
+  "davies_bouldin": 1.7558,
+  "calinski_harabasz": 145.91,
+  "cluster_sizes": {
+    "0": 182,
+    "1": 348,
+    "2": 292,
+    "3": 53
+  },
+  "cluster_churn_rates": {
+    "0": 1.0,
+    "1": 0.1466,
+    "2": 0.1541,
+    "3": 0.2453
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "best_params": {
+    "max_depth": 20,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "min_samples_split": 2,
+    "n_estimators": 100
+  },
+  "cv_rmse": 0.449733,
+  "test_mae": 0.067127,
+  "test_rmse": 0.846176,
+  "test_r2": 0.6076,
+  "train_r2": 0.9448,
+  "mape_pct": 74.78,
+  "top10_features": {
+    "MonetaryPerDay": 0.1576510478395538,
+    "AvgBasketValue": 0.14805662002440467,
+    "Frequency": 0.1419314233380561,
+    "UniqueProducts": 0.07715420882924907,
+    "MonetaryStd": 0.05027535093763706,
+    "CustomerTenureDays": 0.036117943437475424,
+    "NegativeQuantityCount": 0.03433785290857266,
+    "AvgQuantityPerTransaction": 0.03147869844365362,
+    "SpendingCategory": 0.030550154889144563,
+    "TenureRatio": 0.030545568289057072
+  }
+}
